@@ -114,7 +114,7 @@ class arpw_widget extends WP_Widget {
 	function update( $new_instance, $old_instance ) {
 
 		$instance = $old_instance;
-		$instance['title'] = esc_attr( $new_instance['title'] );
+		$instance['title'] = strip_tags( $new_instance['title'] );
 		$instance['limit'] = $new_instance['limit'];
 		$instance['excerpt'] = $new_instance['excerpt'];
 		$instance['length'] = (int)( $new_instance['length'] );
@@ -147,7 +147,7 @@ class arpw_widget extends WP_Widget {
         );
         
 		$instance = wp_parse_args( (array) $instance, $defaults );
-		$title = esc_attr( $instance['title'] );
+		$title = strip_tags( $instance['title'] );
 		$limit = $instance['limit'];
 		$excerpt = $instance['excerpt'];
 		$length = (int)($instance['length']);
