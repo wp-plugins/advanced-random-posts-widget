@@ -3,7 +3,7 @@ Contributors: satrya
 Tags: random posts, random, thumbnails, widget, widgets, sidebar, excerpt, multiple widgets
 Requires at least: 3.4
 Tested up to: 3.5
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,7 +11,7 @@ Easily display random posts in a widget. Allows you to display them with thumbna
 
 == Description ==
 
-This plugin will enable a custom, fleksible and advanced random posts widget. Allows you to display a list of random posts with thumbnail and excerpt also you can display it from all or a specific category.
+This plugin will enable a custom, flexible and advanced random posts widget. Allows you to display a list of random posts with thumbnail and excerpt also you can display it from all or a specific category.
 
 = Features Include: =
 
