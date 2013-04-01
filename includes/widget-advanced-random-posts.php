@@ -11,7 +11,7 @@ class arpw_widget extends WP_Widget {
 	function arpw_widget() {
 	
 		$widget_ops = array( 
-			'classname' => 'arpw_widget', 
+			'classname' => 'arpw_widget random-posts', 
 			'description' => __( 'Enable advanced random posts widget.', 'arpw' ) 
 		);
 
@@ -40,69 +40,71 @@ class arpw_widget extends WP_Widget {
 		$thumb_width = (int)( $instance['thumb_width'] );
 		$cat = $instance['cat'];
 		$date = $instance['date'];
+		$css = wp_filter_nohtml_kses( $instance['css'] );
 
 		echo $before_widget;
+
+		if( $css )
+		    echo '<style>' . $css . '</style>';
  
-		if (!empty( $title ))
+		if ( ! empty( $title ) )
 			echo $before_title . $title . $after_title;
 		
-		global $post;
+			global $post;
 
-		$args = array( 
-			'numberposts' => $limit,
-			'cat' => $cat,
-			'post_type' => 'post',
-			'orderby' => 'rand'
-		);
+			$args = array( 
+				'numberposts' => $limit,
+				'cat' => $cat,
+				'post_type' => 'post',
+				'orderby' => 'rand'
+			);
 
-	    $arpwwidget = get_posts( $args );
+		    $arpwwidget = get_posts( $args );
 
-		?>
+		    if( $arpwwidget ) : ?>
 
-		<div class="arpw-block">
-			
-			<ul>
+				<div class="arpw-block">
+					
+					<ul>
 
-				<?php foreach( $arpwwidget as $post ) :	setup_postdata( $post ); ?>
+						<?php foreach( $arpwwidget as $post ) :	setup_postdata( $post ); ?>
 
-					<li class="arpw-clearfix">
-							
-						<a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'arpw' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark">
+							<li class="arpw-clearfix">
 
-							<?php
-								if( $thumb == true ) {
+								<?php if( has_post_thumbnail() && $thumb == true ) { ?>
+									
+									<a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'arpw' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark">
+										<?php
+											if ( current_theme_supports( 'get-the-image' ) )
+												get_the_image( array( 'meta_key' => 'Thumbnail', 'height' => $thumb_height, 'width' => $thumb_width, 'image_class' => 'arpw-alignleft', 'link_to_post' => false ) );
+											else 
+												the_post_thumbnail( array( $thumb_height, $thumb_width ), array( 'class' => 'arpw-alignleft', 'alt' => esc_attr( get_the_title() ), 'title' => esc_attr( get_the_title() ) ) );
+										?>
+									</a>
 
-									if ( current_theme_supports( 'get-the-image' ) )
-										get_the_image( array( 'meta_key' => 'Thumbnail', 'height' => $thumb_height, 'width' => $thumb_width, 'image_class' => 'arpw-alignleft' ) );
-									else 
-										the_post_thumbnail( array( $thumb_height, $thumb_width ), array( 'class' => 'arpw-alignleft', 'alt' => esc_attr( get_the_title() ), 'title' => esc_attr( get_the_title() ) ) );
+								<?php } ?>
 
-								}
-							?>
+								<h3 class="arpw-title">
+									<a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'arpw' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
+								</h3>
 
-						</a>
+								<?php if( $date == true ) { ?>
+									<span class="arpw-time"><?php echo human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) . __( ' ago', 'arpw' ); ?></span>
+								<?php } ?>
 
-						<h3 class="arpw-title">
-							<a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'arpw' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
-						</h3>
+								<?php if( $excerpt == true ) {  ?>
+									<div class="arpw-summary"><?php echo arpw_excerpt( $length ); ?></div>
+								<?php } ?>
 
-						<?php if( $date == true ) { ?>
-							<span class="arpw-time"><?php echo human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) . __( ' ago', 'arpw' ); ?></span>
-						<?php } ?>
+							</li>
 
-						<?php if( $excerpt == true ) {  ?>
-							<div class="arpw-summary"><?php echo arpw_excerpt( $length ); ?></div>
-						<?php } ?>
+						<?php endforeach; wp_reset_postdata(); ?>
 
-					</li>
+					</ul>
 
-				<?php endforeach; wp_reset_postdata(); ?>
+				</div><!-- .arpw-block - http://wordpress.org/extend/plugins/advanced-random-posts-widget/ -->
 
-			</ul>
-
-		</div><!-- .arpw-block -->
-
-		<?php
+			<?php endif;
 
 		echo $after_widget;
 		
@@ -123,6 +125,7 @@ class arpw_widget extends WP_Widget {
 		$instance['thumb_width'] = (int)( $new_instance['thumb_width'] );
 		$instance['cat'] = $new_instance['cat'];
 		$instance['date'] = $new_instance['date'];
+		$instance['css'] = wp_filter_nohtml_kses( $new_instance['css'] );
 
 		return $instance;
 
@@ -143,7 +146,8 @@ class arpw_widget extends WP_Widget {
             'thumb_height' => 45,
             'thumb_width' => 45,
             'cat' => '',
-            'date' => true
+            'date' => true,
+            'css' => ''
         );
         
 		$instance = wp_parse_args( (array) $instance, $defaults );
@@ -156,6 +160,7 @@ class arpw_widget extends WP_Widget {
 		$thumb_width = (int)( $instance['thumb_width'] );
 		$cat = $instance['cat'];
 		$date = $instance['date'];
+		$css = wp_filter_nohtml_kses( $instance['css'] );
 
 	?>
 
@@ -181,7 +186,7 @@ class arpw_widget extends WP_Widget {
         </p>
         <p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'length' ) ); ?>"><?php _e( 'Excerpt length:', 'arpw' ); ?></label>
-			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'length' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'length' ) ); ?>" type="text" value="<?php echo $length; ?>" />
+			<input id="<?php echo esc_attr( $this->get_field_id( 'length' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'length' ) ); ?>" type="text" value="<?php echo $length; ?>" />
 		</p>
 
 		<?php if( current_theme_supports( 'post-thumbnails' ) ) { ?>
@@ -203,7 +208,11 @@ class arpw_widget extends WP_Widget {
 			<?php wp_dropdown_categories( array( 'name' => $this->get_field_name( 'cat' ), 'show_option_all' => __( 'All categories' , 'arpw' ), 'hide_empty' => 1, 'hierarchical' => 1, 'selected' => $cat ) ); ?>
 		</p>
 		<p>
-			<span style="color: #f00;"><?php printf( __( 'Advanced Random Posts Widget is a project by <a href="%s" target="_blank">Satrya</a>', 'arpw' ), esc_url( 'http://satrya.me' ) ); ?></span>
+			<label for="<?php echo $this->get_field_id( 'css' ); ?>"><?php _e( 'Custom CSS:', 'arpw' ); ?></label>
+			<textarea class="widefat" id="<?php echo $this->get_field_id( 'css' ); ?>" name="<?php echo $this->get_field_name( 'css' ); ?>" style="height:100px;"><?php echo $css; ?></textarea>
+		</p>
+		<p>
+			<span style="color: #f00;"><?php printf( __( 'Advanced Random Posts Widget is a project by <a href="%s" target="_blank">Satrya</a>', 'arpw' ), esc_url( 'http://twitter.com/msattt' ) ); ?></span>
 		</p>
 
 	<?php
@@ -216,12 +225,10 @@ class arpw_widget extends WP_Widget {
  *
  * @since 1.0
  */
-add_action( 'widgets_init', 'arpw_register_widget' );
 function arpw_register_widget() {
-
 	register_widget( 'arpw_widget' );
-
 }
+add_action( 'widgets_init', 'arpw_register_widget' );
 
 /**
  * Print a custom excerpt.
@@ -243,5 +250,4 @@ function arpw_excerpt( $length ) {
 	return $excerpt;
 
 }
-
 ?>
