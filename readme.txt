@@ -3,7 +3,7 @@ Contributors: satrya
 Tags: random posts, random, thumbnails, widget, widgets, sidebar, excerpt, multiple widgets
 Requires at least: 3.4
 Tested up to: 3.5
-Stable tag: 1.2
+Stable tag: 1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,7 +19,7 @@ This plugin will enable a custom, flexible and advanced random posts widget. All
 * Display excerpt, with customizable length.
 * Display from all or a specific category.
 * Display post date.
-* Support `get_the_image` function.
+* Support [Get The Image](http://wordpress.org/extend/plugins/get-the-image/) plugin.
 * Multiple widgets.
 
 = Ugly Image Sizes =
@@ -41,6 +41,14 @@ This plugin creates custom image sizes. If you use images that were uploaded to 
 1. The widget settings
 
 == Changelog ==
+
+= 1.3 - 04/02/2013 = 
+* Remove `a` tag when no thumbnail
+* Add custom css box
+* Inheritance `font-family`
+
+= 1.2 - 02/23/13 =
+* Minor update
 
 = 1.1 - 17/2/2013 =
 * Minor update
