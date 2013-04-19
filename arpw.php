@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Advanced Random Posts Widget
-Plugin URI: https://github.com/themephe/advanced-random-posts-widget
+Plugin URI: http://wordpress.org/extend/plugins/advanced-random-posts-widget/
 Description: Enables advanced random posts widget.
-Version: 1.3
+Version: 1.4
 Author: Satrya
-Author URI: http://satrya.me
+Author URI: http://satrya.me/
 Author Email: satrya@satrya.me
 License: GPLv2
 */
