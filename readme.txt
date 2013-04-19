@@ -2,8 +2,8 @@
 Contributors: satrya
 Tags: random posts, random, thumbnails, widget, widgets, sidebar, excerpt, multiple widgets
 Requires at least: 3.4
-Tested up to: 3.5
-Stable tag: 1.3
+Tested up to: 3.5.1
+Stable tag: 1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,14 +19,19 @@ This plugin will enable a custom, flexible and advanced random posts widget. All
 * Display excerpt, with customizable length.
 * Display from all or a specific category.
 * Display post date.
-* Support [Get The Image](http://wordpress.org/extend/plugins/get-the-image/) plugin.
+* Support `get_the_image` function.
 * Multiple widgets.
 
 = Ugly Image Sizes =
 This plugin creates custom image sizes. If you use images that were uploaded to the media library before you installed this plugin, please install [Regenerate Thumbnails](http://wordpress.org/extend/plugins/regenerate-thumbnails/) plugin to corrected the sizes.
 
 = Support =
-* [Open issue on github](https://github.com/themephe/advanced-random-posts-widget/issues).
+* Go to [forum support](http://wordpress.org/support/plugin/advanced-random-posts-widget).
+* [Open issue on github](https://github.com/satrya/advanced-random-posts-widget/issues).
+* [Rate/Review the plugin](http://wordpress.org/support/view/plugin-reviews/advanced-random-posts-widget).
+
+= Project Info: =
+* Developed by [Satrya](http://satrya.me/)
 
 = Demo =
 [Live demo](http://demo.themephe.com/tiga/blog/).
@@ -41,6 +46,9 @@ This plugin creates custom image sizes. If you use images that were uploaded to 
 1. The widget settings
 
 == Changelog ==
+
+= 1.4 - 04/19/2013 =
+* Change support uri
 
 = 1.3 - 04/02/2013 = 
 * Remove `a` tag when no thumbnail

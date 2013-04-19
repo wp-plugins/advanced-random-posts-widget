@@ -212,7 +212,7 @@ class arpw_widget extends WP_Widget {
 			<textarea class="widefat" id="<?php echo $this->get_field_id( 'css' ); ?>" name="<?php echo $this->get_field_name( 'css' ); ?>" style="height:100px;"><?php echo $css; ?></textarea>
 		</p>
 		<p>
-			<span style="color: #f00;"><?php printf( __( 'Advanced Random Posts Widget is a project by <a href="%s" target="_blank">Satrya</a>', 'arpw' ), esc_url( 'http://twitter.com/msattt' ) ); ?></span>
+			<span style="color: #f00;"><?php printf( __( 'Advanced Random Posts Widget is a project by <a href="%s" target="_blank">Satrya</a>', 'arpw' ), esc_url( 'http://satrya.me/' ) ); ?></span>
 		</p>
 
 	<?php
