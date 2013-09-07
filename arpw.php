@@ -1,13 +1,13 @@
 <?php
 /*
-Plugin Name: Advanced Random Posts Widget
-Plugin URI: http://wordpress.org/extend/plugins/advanced-random-posts-widget/
-Description: Enables advanced random posts widget.
-Version: 1.4
-Author: Satrya
-Author URI: http://satrya.me/
+Plugin Name:  Advanced Random Posts Widget
+Plugin URI:   http://wordpress.org/plugins/advanced-random-posts-widget/
+Description:  Enables advanced random posts widget.
+Version:      1.5
+Author:       Satrya
+Author URI:   http://satrya.me/
 Author Email: satrya@satrya.me
-License: GPLv2
+License:      GPLv2
 */
 
 // Exit if accessed directly
@@ -24,13 +24,13 @@ class ARP_Widget {
 	 */
 	public function __construct() {
 
-		add_action( 'plugins_loaded', array( &$this, 'constants' ), 1 );
+		add_action( 'plugins_loaded'       , array( &$this, 'constants' ), 1 );
 
-		add_action( 'plugins_loaded', array( &$this, 'i18n' ), 2 );
+		add_action( 'plugins_loaded'       , array( &$this, 'i18n' ), 2 );
 
-		add_action( 'plugins_loaded', array( &$this, 'includes' ), 3 );
+		add_action( 'plugins_loaded'       , array( &$this, 'includes' ), 3 );
 
-		add_action( 'init', array( &$this, 'init' ) );
+		add_action( 'admin_enqueue_scripts', array( &$this, 'admin_style' ) );
 
 	}
 
@@ -41,9 +41,9 @@ class ARP_Widget {
 	 */
 	public function constants() {
 
-		define( 'ARPW_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
+		define( 'ARPW_DIR'     , trailingslashit( plugin_dir_path( __FILE__ ) ) );
 
-		define( 'ARPW_URI', trailingslashit( plugin_dir_url( __FILE__ ) ) );
+		define( 'ARPW_URI'     , trailingslashit( plugin_dir_url( __FILE__ ) ) );
 
 		define( 'ARPW_INCLUDES', ARPW_DIR . trailingslashit( 'includes' ) );
 
@@ -55,10 +55,8 @@ class ARP_Widget {
 	 * @since 1.0
 	 */
 	public function i18n() {
-
 		/* Load the translation of the plugin. */
 		load_plugin_textdomain( 'arpw', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-
 	}
 
 	/**
@@ -67,23 +65,16 @@ class ARP_Widget {
 	 * @since 1.0
 	 */
 	public function includes() {
-
 		require_once( ARPW_INCLUDES . 'widget-advanced-random-posts.php' );
 	}
 
 	/**
-	 * Register custom style for the widget.
+	 * Register custom style for the widget setting.
 	 *
-	 * @since 1.0
+	 * @since 1.5
 	 */
-	function init() {
-		
-		if( ! is_admin() ) {
-
-			wp_enqueue_style( 'arpw-style', ARPW_URI . 'arpw.css' );
-
-		}
-
+	function admin_style() {
+		wp_enqueue_style( 'arpw-admin-style', ARPW_URI . 'includes/admin.css' );
 	}
 
 }
