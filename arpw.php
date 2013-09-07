@@ -3,7 +3,7 @@
 Plugin Name:  Advanced Random Posts Widget
 Plugin URI:   http://wordpress.org/plugins/advanced-random-posts-widget/
 Description:  Enables advanced random posts widget.
-Version:      1.5
+Version:      1.5.1
 Author:       Satrya
 Author URI:   http://satrya.me/
 Author Email: satrya@satrya.me
